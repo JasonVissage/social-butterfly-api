@@ -83,7 +83,7 @@ const thoughtController = {
     })
       .then((updatedThought) => {
         if (!updatedThought) {
-          return res.status(404).json({ message: 'No thought with this ID!' });
+          return res.status(404).json({ message: 'Invalid Thought ID!' });
         }
         res.json(updatedThought);
       })
@@ -94,7 +94,7 @@ const thoughtController = {
     Thought.findOneAndDelete({ _id: params.id })
       .then((deletedThought) => {
         if (!deletedThought) {
-          return res.status(404).json({ message: 'No thought with this ID!' });
+          return res.status(404).json({ message: 'Invalid Thought ID!' });
         }
         res.json(deletedThought);
       })
