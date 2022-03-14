@@ -28,4 +28,42 @@ const ThoughtSchema = new Schema(
     id: false,
   }
 );
+
+const Thought = model('Thought', ThoughtSchema);
+
+ThoughtSchema.virtuals('reactionCount').get(function () {
+  return this.reactions.length;
+});
+
+const ReactionSchema = new Schema(
+  {
+    reactionId: {
+      type: Schema.Types.ObjectId,
+      default: () => new Types.ObjectId(),
+    },
+    reactionBody: {
+      type: String,
+      required: true,
+      minlength: 1,
+      maxlength: 280,
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    createdAt: {
+      Date,
+      default: Date.now,
+      get: (createdAtVal) => moment(createdAtVal).format('MM/DD/YY [at] HH:MM'),
+    },
+  },
+  {
+    toJSON: {
+      virtuals: true,
+      getters: true,
+    },
+    id: false,
+  }
+);
+
 module.exports = Thought;
