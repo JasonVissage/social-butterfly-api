@@ -18,7 +18,7 @@ const ReactionSchema = new Schema(
       required: true,
     },
     createdAt: {
-      Date,
+      type: Date,
       default: Date.now,
       get: (createdAtVal) => moment(createdAtVal).format('MM/DD/YY [at] HH:MM'),
     },
@@ -61,7 +61,7 @@ const ThoughtSchema = new Schema(
 
 const Thought = model('Thought', ThoughtSchema);
 
-ThoughtSchema.virtuals('reactionCount').get(function () {
+ThoughtSchema.virtual('reactionCount').get(function () {
   return this.reactions.length;
 });
 
